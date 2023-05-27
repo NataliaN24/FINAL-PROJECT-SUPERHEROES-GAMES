@@ -21,5 +21,10 @@ public:
 	void setEmail(const MyString& email);
 	void setPassword(const MyString& password);
 
+	const MyString& getName()const;
+	const MyString& getSurname()const;
+	const MyString& getEmail()const;
+	const MyString& getPassword()const;
+
 };
 

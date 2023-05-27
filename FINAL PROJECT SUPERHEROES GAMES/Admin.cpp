@@ -69,3 +69,16 @@ void  Admin::setPassword(const MyString& password) {
 	}
 
 }
+
+const MyString& Admin::getName()const {
+	return name;
+}
+const MyString& Admin::getSurname()const {
+	return surname;
+}
+const MyString& Admin::getEmail()const {
+	return email;
+}
+const MyString& Admin::getPassword()const {
+	return password;
+}
