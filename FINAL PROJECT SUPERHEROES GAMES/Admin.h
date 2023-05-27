@@ -12,5 +12,14 @@ class Admin
 	MyString email;
 	MyString password;
 	int numOfAdmins;
+public:
+	Admin() = default;
+	Admin(const MyString& name, const MyString& surname, const MyString& email, const MyString& password);
+
+	void setName(const MyString& name);
+	void setSurname(const MyString& surname);
+	void setEmail(const MyString& email);
+	void setPassword(const MyString& password);
+
 };
 
