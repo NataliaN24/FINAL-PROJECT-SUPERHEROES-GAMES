@@ -26,5 +26,11 @@ public:
 	const MyString& getEmail()const;
 	const MyString& getPassword()const;
 
+	void signUp();
+	bool logIn();
+	void addAnotherAdmin();
+	void seeInfoOfAdmins();
+
 };
+void storeInFile(const Admin& admins, const  char* filename);
 
