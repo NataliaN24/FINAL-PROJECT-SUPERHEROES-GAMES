@@ -3,8 +3,10 @@
 #include<fstream>
 #include<cstring>
 #include <sstream>
-
-#include"MyString.h" 
+#include"MyString.h"
+#include"Superhero.h"
+#include"Player.h"
+ 
 class Admin
 {
 	MyString name;
@@ -26,11 +28,19 @@ public:
 	const MyString& getEmail()const;
 	const MyString& getPassword()const;
 
-	void signUp();
-	bool logIn();
-	void addAnotherAdmin();
-	void seeInfoOfAdmins();
+	Player& addPlayers(const MyString& name, const  MyString& surname, const  MyString& email, const  MyString& password, const  unsigned int money)const;//DONE
 
+	void signUp()const;//DONE
+	bool logIn()const;//DONE
+
+	void addAnotherAdmin()const;//DONE
+	void seeInfoOfAdmins()const;//DONE
+	Superhero& addSuperhero();//DONE
+	void seeInfoOfPlayers()const;//DONE
+	void seeInfoOfSoldSuperheroes()const;//DONE
+	void deletePlayer(const MyString& email, const MyString& password, const MyString& playerName);
 };
-void storeInFile(const Admin& admins, const  char* filename);
-
+void storeInFile(const Admin& admins, const MyString& filename);//DONE
+Superhero getSuperheroDetails();//DONE
+void addSuperhero1(const Superhero& superhero);//DONE
+void addSuperheroes3(int numSuperheroes);//DONE

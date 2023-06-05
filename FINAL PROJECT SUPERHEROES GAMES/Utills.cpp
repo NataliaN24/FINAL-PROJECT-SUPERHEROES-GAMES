@@ -2,7 +2,6 @@
 #include <iostream>
 #include<cstring>
 
-//we don't make them static, because we want to use the in other cpp files.
 
 bool isLower(char ch) { return ch >= 'a' && ch <= 'z'; }
 
@@ -11,29 +10,12 @@ bool isSymbol(char ch)
 	return ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z';
 }
 
-//void toUpper(char* str)
-//{
-//	if (str == nullptr)
-//		throw std::invalid_argument("The given string does not exist");
-//
-//	static int diff = 'a' - 'A';
-//	while (*str)
-//	{
-//		if (!isSymbol(*str))
-//			throw std::bad_cast();
-//		if (isLower(*str))
-//			*str = *str - diff;
-//		str++;
-//	}
-//}
+
 void toUpper(char& ch)
 {
 	if (!isSymbol(ch))
 		throw std::invalid_argument("The given character is not a letter");
 
-	/*static int diff = 'a' - 'A';
-	if (isLower(ch))
-		ch = ch - diff;*/
 	if (isLower(ch)) {
 		ch = ch - ('a' - 'A');
 	}
