@@ -16,3 +16,4 @@ void reverseString(char* str, int length);
 MyString reverseBalance(int balance);
 void showPowerType(unsigned power);
 void showAttack(unsigned attackMode);
+unsigned extractBalance(const char* balanceStr);

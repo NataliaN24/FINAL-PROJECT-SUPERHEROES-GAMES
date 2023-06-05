@@ -132,3 +132,10 @@ void showAttack(unsigned attackMode)
 	}
 
 }
+unsigned extractBalance(const char* balanceStr) {
+	unsigned balance = 0;
+	for (size_t i = 0; i < strlen(balanceStr); i++) {
+		balance = balance * 10 + (balanceStr[i] - '0');
+	}
+	return balance;
+}
