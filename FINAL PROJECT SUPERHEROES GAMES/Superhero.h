@@ -51,5 +51,5 @@ public:
 
 };
 
-void storeInFileSuperheroes(const Superhero& superheroes, const  char* filename);
+void storeInFileSuperheroes(const Superhero& superheroes, const  MyString& filename);
 

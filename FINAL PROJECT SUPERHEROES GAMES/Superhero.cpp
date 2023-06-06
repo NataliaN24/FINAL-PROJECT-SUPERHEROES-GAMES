@@ -82,8 +82,8 @@ bool Superhero::getAttackMode()const {
 	return attackMode;
 }
 
-void storeInFileSuperheroes(const Superhero& superheroes, const  char* filename) {
-	std::ofstream file(filename, std::ios::app);
+void storeInFileSuperheroes(const Superhero& superheroes, const  MyString&filename) {
+	std::ofstream file(filename.c_str(), std::ios::app);
 	if (!file.is_open()) {
 		throw std::runtime_error("Unable to open file for reading.");
 
