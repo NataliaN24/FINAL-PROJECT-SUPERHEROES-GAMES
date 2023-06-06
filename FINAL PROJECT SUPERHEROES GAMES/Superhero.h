@@ -36,13 +36,13 @@ public:
 	bool getAttackMode()const;
 	void seeInfoOfSuperheroes();
 	PowerType readPowertypefrominput();
-	unsigned   getPowerTypeOfSuperhero(const char* name);
+	unsigned   getPowerTypeOfSuperhero(const MyString& name)const;
 
 	unsigned  showPriceOfSuperhero();
-	unsigned showPointsOfSuperhero(const char* name);
-	unsigned showAttackMode(const char* name);
+	unsigned showPointsOfSuperhero(const MyString& name)const;
+	unsigned showAttackMode(const MyString& name)const;
 
-	void storeAttackMode(const char* name, unsigned input);
+	void storeAttackMode(const MyString& name, unsigned input)const;
 	/*void setAttackMode(bool attackMode);
 	bool getAttackMode() const;*/
 

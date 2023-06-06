@@ -142,7 +142,7 @@ Superhero::PowerType readPowertypefrominput(MyString input) {
 unsigned Superhero::showPriceOfSuperhero() {  //DONE
 
 	std::cout << "Enter the name of superhero to see its price: " << std::endl;
-	char name[50];
+	MyString name;
 	std::cin >> name;
 
 
@@ -160,14 +160,10 @@ unsigned Superhero::showPriceOfSuperhero() {  //DONE
 		char fields[7][50];
 		fieldNum = extractFields(line, fields, 7);
 
-		if (fieldNum == 7 && strcmp(fields[0], name) == 0)
+		if (fieldNum == 7 && strcmp(fields[0], name.c_str()) == 0)
 		{
 			inFile.close();
-			unsigned balance = 0;
-			for (size_t i = 0; i < strlen(fields[5]); i++) {
-				balance = balance * 10 + (fields[5][i] - '0');
-			}
-			return balance;
+			return extractBalance(fields[5]);
 		}
 	}
 
@@ -176,7 +172,7 @@ unsigned Superhero::showPriceOfSuperhero() {  //DONE
 	return 0;
 }
 
-unsigned  Superhero::getPowerTypeOfSuperhero(const char* name)
+unsigned  Superhero::getPowerTypeOfSuperhero(const MyString& name)const
 {
 
 	std::ifstream inFile("purchased_superheroes.txt");
@@ -193,7 +189,7 @@ unsigned  Superhero::getPowerTypeOfSuperhero(const char* name)
 		char fields[7][50];
 		fieldNum = extractFields(line, fields, 7);
 
-		if (fieldNum == 7 && strcmp(fields[0], name) == 0)
+		if (fieldNum == 7 && strcmp(fields[0], name.c_str()) == 0)
 		{
 			inFile.close();
 			unsigned powertype = 0;
@@ -209,7 +205,7 @@ unsigned  Superhero::getPowerTypeOfSuperhero(const char* name)
 	return Superhero::none;
 }
 
-unsigned Superhero::showPointsOfSuperhero(const char* name) {
+unsigned Superhero::showPointsOfSuperhero(const MyString& name)const {
 
 
 	std::ifstream inFile("purchased_superheroes.txt");
@@ -226,14 +222,10 @@ unsigned Superhero::showPointsOfSuperhero(const char* name) {
 		char fields[7][50];
 		fieldNum = extractFields(line, fields, 7);
 
-		if (fieldNum == 7 && strcmp(fields[0], name) == 0)
+		if (fieldNum == 7 && strcmp(fields[0], name.c_str()) == 0)
 		{
 			inFile.close();
-			unsigned points = 0;
-			for (size_t i = 0; i < strlen(fields[4]); i++) {
-				points = points * 10 + (fields[4][i] - '0');
-			}
-			return points;
+			return extractBalance(fields[4]);
 		}
 	}
 	std::cout << "Incorrect name. Please try again." << std::endl;
@@ -241,7 +233,7 @@ unsigned Superhero::showPointsOfSuperhero(const char* name) {
 	return 0;
 }
 
-void Superhero::storeAttackMode(const char* name, unsigned input) {
+void Superhero::storeAttackMode(const MyString& name, unsigned input)const {
 	std::ifstream infile("purchased_superheroes.txt");
 	std::ofstream outfile("temp.txt");
 	if (!infile.is_open()) {
@@ -259,7 +251,7 @@ void Superhero::storeAttackMode(const char* name, unsigned input) {
 		char fields[7][50];
 		int fieldNum = extractFields(line, fields, 7);
 
-		if (fieldNum == 7 && strcmp(fields[0], name) == 0) {
+		if (fieldNum == 7 && strcmp(fields[0], name.c_str()) == 0) {
 			if (input == 0) {
 				strcpy(fields[6], "0");
 			}
@@ -284,7 +276,7 @@ void Superhero::storeAttackMode(const char* name, unsigned input) {
 	rename("temp.txt", "purchased_superheroes.txt");
 }
 
-unsigned Superhero::showAttackMode(const char* name) {
+unsigned Superhero::showAttackMode(const MyString& name)const {
 	std::ifstream inFile("purchased_superheroes.txt");
 	if (inFile) {
 		char line[256];
@@ -292,14 +284,9 @@ unsigned Superhero::showAttackMode(const char* name) {
 			char fields[7][50];
 			int fieldNum = extractFields(line, fields, 7);
 
-			if (fieldNum == 7 && strcmp(fields[0], name) == 0) {
+			if (fieldNum == 7 && strcmp(fields[0], name.c_str()) == 0) {
 				inFile.close();
-				unsigned points = atoi(fields[6]);
-				/*unsigned points = 0;
-				for (size_t i = 0; i < strlen(fields[6]); i++) {
-					points = points * 10 + (fields[6][i] - '0');
-				}*/
-				return points;
+				return extractBalance(fields[6]);
 			}
 		}
 		std::cout << "Incorrect name. Please try again." << std::endl;
@@ -313,21 +300,21 @@ unsigned Superhero::showAttackMode(const char* name) {
 }
 
 
-MyString convertToPointsStr(int input) {
-	int n = 0, temp = input;
-	char pointsStr[50];
-	while (temp != 0) {
-		pointsStr[n++] = (temp % 10) + '0';
-		temp /= 10;
-	}
-	pointsStr[n] = '\0';
-	for (int i = 0, j = n - 1; i < j; i++, j--) {
-		char temp = pointsStr[i];
-		pointsStr[i] = pointsStr[j];
-		pointsStr[j] = temp;
-	}
-	return MyString(pointsStr);
-}
+//MyString convertToPointsStr(int input) {
+//	int n = 0, temp = input;
+//	char pointsStr[50];
+//	while (temp != 0) {
+//		pointsStr[n++] = (temp % 10) + '0';
+//		temp /= 10;
+//	}
+//	pointsStr[n] = '\0';
+//	for (int i = 0, j = n - 1; i < j; i++, j--) {
+//		char temp = pointsStr[i];
+//		pointsStr[i] = pointsStr[j];
+//		pointsStr[j] = temp;
+//	}
+//	return MyString(pointsStr);
+//}
 
 
 //if (fieldNum == 7 && strcmp(fields[0], name) == 0) {
