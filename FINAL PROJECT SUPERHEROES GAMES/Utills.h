@@ -18,6 +18,6 @@ MyString reverseBalance(int balance);
 void showPowerType(unsigned power);
 void showAttack(unsigned attackMode);
 unsigned extractBalance(const char* balanceStr);
-
+unsigned getFieldValue(const MyString& filename, const MyString& name, int fieldIndex);
 void updateFile(const MyString& inputFileName, const MyString& outputFileName, const MyString& name, unsigned money, int index);//done works this is for money
 void updatePointsInFile(const MyString& inputFileName, const MyString& outputFileName, const MyString& name, unsigned points, int fieldNum, int fieldIndex);

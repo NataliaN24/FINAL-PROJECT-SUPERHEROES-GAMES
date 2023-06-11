@@ -3,51 +3,50 @@
 #include<fstream>
 #include"MyString.h"
 #include"Superhero.h"
+#include"User.h"
+#include"SuperheroesCollection.h"
 
-class Player
+class Player :public User
 {
-	MyString name;
-	MyString surname;
-	MyString email;
-	MyString password;
 	Superhero* purchased_superhero;
-	int numOfPlayers;
 	unsigned int money;
-	bool LoggedIn;
+
+	void copyFrom(const Player& other);
+	void moveFrom(Player&& other)noexcept;
+	void free();
+
 
 public:
-	Player() = default;
+	Player();
 	Player(const MyString& name, const MyString& surname, const MyString& email, const MyString& password, unsigned int money);
+	Player(const Player& other);
+	Player(Player&& other)noexcept;
+	Player& operator=(const Player& other);
+	Player& operator=(Player&& other) noexcept;
+	~Player();
 
-	void setName(const MyString& name);
-	void setSurname(const MyString& surname);
-	void setEmail(const MyString& email);
-	void setPassword(const MyString& password);
+	void signUp()const;
 	void setMoney(unsigned int money);
-
-	const MyString& getName()const;
-	const MyString& getSurname()const;
-	const MyString& getEmail()const;
-	const MyString& getPassword()const;
 	const unsigned int getMoney()const;
 
-	void setAttackingMode(const MyString& name);//DONE
-	bool logIn(const MyString& email, const  MyString& password)const;//DONE
-	void seeSuperheroes();//DONE
-	void seeInfo();//DONE
-	void seeInfoByPlayers();//DONE
+
+	void setAttackingMode(const MyString& name);//DONE WORKS
+
+	void seeSuperheroes();//DONE WORKS
+
+	void seeInfoByPlayers();//DONE WORKS
 	void PlayersPLUSSuperheroes();//DONE
-	void deleteProfile(const MyString& email, const MyString& password)const;//DONE
-	void deleteFromPurchase(const MyString& name)const;//DONE
-	void deletePlayerProfile(const MyString& email, const MyString& password, const MyString& name)const;//DONE
+	void deleteProfile(const MyString& email, const MyString& password)const;//DONE WORKS
+	void deleteFromPurchase(const MyString& name)const;//DONE  WORKS
+	void deletePlayerProfile(const MyString& email, const MyString& password, const MyString& name)const;//DONE WORKS
 
-	unsigned showBalance(const MyString& email)const;//DONE
-	unsigned extractBalanceFromFile(const MyString& filename, const  MyString& identifier, unsigned fieldIndex)const;
-	unsigned getMoney(const MyString& playername);//DONE WHY DO I HAVE SHOWBALANCE AND GETMONEY FOR THE SAME FC
-	bool checkIfPlayerhasPurchased(const MyString& playername)const;//DONE
+	unsigned showBalance(const MyString& email)const;//DONE WORKS
+	unsigned extractBalanceFromFile(const MyString& filename, const  MyString& identifier, unsigned fieldIndex)const; //INCLUDE THIS FC IN UTILLS WORKS 
+	unsigned getMoney(const MyString& playername);//DONE WORKS
+	bool checkIfPlayerhasPurchased(const MyString& playername)const;//DONE WORKS
 
-	void purchaseASuperhero();//DONE
-	void buySuperhero();//DONE
+	void purchaseASuperhero();//DONE WORKS
+	void buySuperhero();//DONE WORKS
 
 
 	bool upgradeSuperhero(unsigned money, const  MyString& name);//DONE BUT CHECK
@@ -68,5 +67,5 @@ public:
 
 };
 
-void storeInFilePlayers(const Player& players, const  MyString& filename);//DONE
 void whoWonTheGame(unsigned pointsOfAttaacker, unsigned pointsOfAttacked);//DONE
+void storeInFilePlayers(const Player& players, const  MyString& filename);//DONE

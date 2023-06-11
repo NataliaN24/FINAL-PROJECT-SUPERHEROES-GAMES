@@ -1,83 +1,69 @@
 #include "Player.h"
 #include"Utills.h"
 
+Player::Player() : purchased_superhero(nullptr), money(0) {}
+Player::Player(const MyString& name, const MyString& surname, const MyString& email, const MyString& password, unsigned int money) :User(name, surname, email, password) {
 
-Player::Player(const MyString& name, const MyString& surname, const MyString& email, const MyString& password, unsigned int money) {
-
-	setName(name);
-	setSurname(surname);
-	setEmail(email);
-	setPassword(password);
 	setMoney(money);
 
 }
 
-void Player::setName(const MyString& name) {
-	if (name.length() == 0) {
-		return;
-	}
-	MyString temp(name);
-	if (isLower(temp[0])) {
-		toUpper(temp[0]);
-	}
-	this->name = temp;
-}
-void Player::setSurname(const MyString& surname) {
-	if (surname.length() == 0) {
-		return;
-	}
-	MyString temp(surname);
-	if (isLower(temp[0])) {
-		toUpper(temp[0]);
-	}
-	this->surname = temp;
+void Player::copyFrom(const Player& other) {
+
+	// Copy Player-specific member variables
+	money = other.money;
+
+	if (other.purchased_superhero)
+		purchased_superhero = new Superhero(*other.purchased_superhero);
+	else
+		purchased_superhero = nullptr;
+
+
 
 }
-void Player::setEmail(const MyString& email) {
-	this->email = email;
-
+void Player::moveFrom(Player&& other)noexcept {
+	purchased_superhero = other.purchased_superhero;
+	other.purchased_superhero = nullptr;
+	money = other.money;
+	other.money = 0;
 }
-void  Player::setPassword(const MyString& password) {
-	bool has_upper = false;
-	bool has_lower = false;
-	bool has_digit = false;
-	for (size_t i = 0; i < password.length(); ++i) {
-		if (isupper(password[i])) {
-			has_upper = true;
-		}
-		if (islower(password[i])) {
-			has_lower = true;
-		}
-		if (isdigit(password[i])) {
-			has_digit = true;
-		}
-	}
-	if (has_upper && has_lower && has_digit) {
-		this->password = password;
-
-	}
-	else {
-		throw std::invalid_argument("Password must contain at least one uppercase letter, one lowercase letter, and one number.");
-
-	}
-
+void Player::free() {
+	delete purchased_superhero;
+	purchased_superhero = nullptr;
+	money = 0;
 }
+
+
+Player::Player(const Player& other) {
+	copyFrom(other);
+}
+Player::Player(Player&& other)noexcept {
+	moveFrom(std::move(other));
+}
+Player& Player:: operator=(const Player& other) {
+	if (this != &other) {
+		free();
+		copyFrom(other);
+	}
+	return*this;
+}
+Player& Player::operator=(Player&& other) noexcept {
+	if (this != &other) {
+		free();
+		moveFrom(std::move(other));
+	}
+	return*this;
+}
+
+Player::~Player()
+{
+	free();
+}
+
 void Player::setMoney(unsigned int money) {
 	this->money = money;
 }
 
-const MyString& Player::getName()const {
-	return name;
-}
-const MyString& Player::getSurname()const {
-	return surname;
-}
-const MyString& Player::getEmail()const {
-	return email;
-}
-const MyString& Player::getPassword()const {
-	return password;
-}
 const unsigned int Player::getMoney()const {
 	return money;
 }
@@ -94,34 +80,10 @@ void storeInFilePlayers(const Player& players, const MyString& filename) {
 
 
 }
-bool Player::logIn(const MyString& email, const MyString& password)const {
 
-	std::ifstream inFile("player.txt");
-	if (!inFile)
-	{
-		std::cout << "Error: player.txt could not be opened." << std::endl;
-		return false;
-	}
-	char line[256];
-	while (inFile.getline(line, 256))
-	{
-		int fieldNum = 0;
-		char fields[5][50];
-		fieldNum = extractFields(line, fields, 5);
 
-		if (fieldNum == 5 && strcmp(fields[2], email.c_str()) == 0 && strcmp(fields[3], password.c_str()) == 0)
-		{
-			std::cout << "Login successful!" << std::endl;
-			inFile.close();
-			return true;
-		}
-	}
-	std::cout << "Incorrect email or password. Please try again." << std::endl;
-	inFile.close();
-	return false;
-}//DONE
 void Player::deleteFromPurchase(const MyString& name) const {
-	std::cout << "Enter the name of superhero of the player that you want to delete its profile:" << std::endl;
+	std::cout << "Enter the name of the superhero of the player that you want to delete its profile:" << std::endl;
 	MyString superheroName;
 	std::cin >> superheroName;
 	std::ifstream inFile("purchase.txt");
@@ -143,12 +105,15 @@ void Player::deleteFromPurchase(const MyString& name) const {
 			inFile.close();
 			tempFile.close();
 			if (deleted) {
-				remove("purchase.txt");
-				rename("temp.txt", "purchase.txt");
-				std::cout << "Player with name " << name << " has been deleted." << std::endl;
+				if (remove("purchase.txt") == 0 && rename("temp.txt", "purchase.txt") == 0) {
+					std::cout << "Player with name " << name << " has been deleted." << std::endl;
+				}
+				else {
+					std::cout << "Error: Failed to delete player profile." << std::endl;
+				}
 			}
 			else {
-				std::cout << "Incorrect  name . Please try again." << std::endl;
+				std::cout << "Incorrect name. Please try again." << std::endl;
 				remove("temp.txt");
 			}
 		}
@@ -159,9 +124,9 @@ void Player::deleteFromPurchase(const MyString& name) const {
 	else {
 		std::cout << "Error: purchase.txt could not be opened." << std::endl;
 	}
-
-
 }
+
+
 void Player::deletePlayerProfile(const MyString& email, const MyString& password, const MyString& name)const
 {
 
@@ -175,6 +140,9 @@ void Player::deletePlayerProfile(const MyString& email, const MyString& password
 	}
 
 }
+
+
+
 void Player::deleteProfile(const MyString& email, const MyString& password)const {
 
 	std::ifstream inFile("player.txt");
@@ -196,9 +164,13 @@ void Player::deleteProfile(const MyString& email, const MyString& password)const
 			inFile.close();
 			tempFile.close();
 			if (deleted) {
-				remove("player.txt");
-				rename("temp.txt", "player.txt");
-				std::cout << "Player with email " << email << " has been deleted." << std::endl;
+
+				if (remove("player.txt") == 0 && rename("temp.txt", "player.txt") == 0) {
+					std::cout << "Player with email " << email << " has been deleted." << std::endl;
+				}
+				else {
+					std::cout << "Error: Failed to delete player profile." << std::endl;
+				}
 			}
 			else {
 				std::cout << "Incorrect email or password. Please try again." << std::endl;
@@ -213,35 +185,8 @@ void Player::deleteProfile(const MyString& email, const MyString& password)const
 		std::cout << "Error: player.txt could not be opened." << std::endl;
 	}
 }//DONE
-void Player::seeInfo() { //DONE
 
-	std::ifstream inFile("player.txt");
 
-	if (inFile) {
-		std::cout << "List of players:" << std::endl;
-
-		char line[256];
-		while (inFile.getline(line, 256)) {
-			int fieldNum = 0;
-			char fields[5][50];
-			fieldNum = extractFields(line, fields, 5);
-
-			if (fieldNum >= 2) {
-				std::cout << "Name of player: " << fields[0] << std::endl;
-				std::cout << "Surname of player: " << fields[1] << std::endl;
-				std::cout << "Email of player: " << fields[2] << std::endl;
-				std::cout << "Password of player: " << fields[3] << std::endl;
-				std::cout << "Money of player $: " << fields[4] << std::endl;
-				std::cout << std::endl;
-			}
-		}
-		inFile.close();
-	}
-	else {
-		std::cout << "Error opening the file." << std::endl;
-	}
-
-}
 void Player::seeInfoByPlayers() {//this will be seen just by players 
 	std::ifstream inFile("player.txt");
 
@@ -268,9 +213,11 @@ void Player::seeInfoByPlayers() {//this will be seen just by players
 	}
 }
 void  Player::seeSuperheroes() {
-	Superhero sup;
-	sup.seeInfoOfSuperheroes();
+	SuperheroesCollection sup;
+	sup.seeInfoOfSuperheroes("superheroes.txt");
 }//DONE
+
+
 void Player::PlayersPLUSSuperheroes() {
 	std::ifstream inFile("purchase.txt");
 	if (inFile) {
@@ -296,6 +243,7 @@ void Player::PlayersPLUSSuperheroes() {
 	}
 }//DONE
 unsigned Player::extractBalanceFromFile(const MyString& filename, const  MyString& identifier, unsigned fieldIndex)const {
+	//	return getFieldValueForPlayer(filename.c_str(), identifier.c_str(), 2);
 	std::ifstream inFile(filename.c_str());
 	if (inFile) {
 		char line[256];
@@ -321,11 +269,11 @@ unsigned Player::extractBalanceFromFile(const MyString& filename, const  MyStrin
 unsigned Player::showBalance(const MyString& email)const {
 	return extractBalanceFromFile("player.txt", email.c_str(), 2);
 }
+
 unsigned Player::getMoney(const MyString& playername) {
 	return extractBalanceFromFile("player.txt", playername.c_str(), 0);
 }
 void Player::purchaseASuperhero() {
-	//char nameOfSuperhero[50];
 	MyString  nameOfSuperhero;
 	std::cout << "enter the name of superhero you just bought to finish purchase :" << std::endl;
 	std::cin >> nameOfSuperhero;
@@ -358,9 +306,12 @@ void Player::purchaseASuperhero() {
 		tempFile.close();
 		purchasefile.close();
 		if (found) {
-			remove("superheroes.txt");
-			rename("temp.txt", "superheroes.txt");
-			std::cout << "Superhero purchased successfully!" << std::endl;
+			if (remove("superheroes.txt") == 0 && rename("temp.txt", "superheroes.txt") == 0) {
+				std::cout << "Superhero purchased successfully!" << std::endl;
+			}
+			else {
+				std::cout << "Error: Failed to update superhero file." << std::endl;
+			}
 		}
 		else {
 			std::cout << "Superhero not found!" << std::endl;
@@ -374,8 +325,9 @@ void Player::purchaseASuperhero() {
 void Player::buySuperhero() {
 	std::cout << "Choose the superhero to buy :" << std::endl;
 
-	Superhero superhero;
-	int price = superhero.showPriceOfSuperhero();
+	//	Superhero superhero;
+	SuperheroesCollection superhero;
+	unsigned  price = superhero.showPriceOfSuperhero();
 	std::cout << "Price of this superhero is:" << price << std::endl;
 
 	MyString email;
@@ -399,17 +351,12 @@ void Player::buySuperhero() {
 			std::cerr << "Error: player.txt could not be opened." << std::endl; //do the same thing in other fc
 			return;
 		}
-		if (!outfile.is_open()) {
-			std::cerr << "Error: temp.txt could not be created." << std::endl;
-			infile.close();
-			return;
-		}
-		if (!purchasefile.is_open()) {
-			std::cerr << "Error: purchase.txt could not be created." << std::endl;
-			infile.close();
-			return;
-		}
 
+		if (!outfile.is_open() || !purchasefile.is_open()) {
+			std::cerr << "Error: file could not be created." << std::endl;
+			infile.close();
+			return;
+		}
 		char line[256];
 		while (infile.getline(line, 256)) {
 			int fieldNum = 0;
@@ -425,10 +372,14 @@ void Player::buySuperhero() {
 		infile.close();
 		outfile.close();
 		purchasefile.close();
-		remove("player.txt");
-		rename("temp.txt", "player.txt");
-		std::cout << "You just bought the desired superhero" << std::endl;
-		purchaseASuperhero();
+		if (remove("player.txt") == 0 && rename("temp.txt", "player.txt") == 0) {
+			std::cout << "You have successfully bought the desired superhero." << std::endl;
+			purchaseASuperhero();
+		}
+		else {
+			std::cout << "Error: Failed to update player file." << std::endl;
+		}
+
 	}
 }//DONE//DONE
 
@@ -449,7 +400,7 @@ bool Player::checkIfPlayerhasPurchased(const MyString& playerName)const {
 			}
 
 		}
-		return false;//////new added
+		return false;
 		std::cout << " ....." << std::endl;
 		inFile.close();
 
@@ -466,7 +417,7 @@ void Player::setAttackingMode(const MyString& name) {
 	std::cout << "SET ATTACK MODE:1 FOR ATTACK MODE| 0 FOR DEFENSE MODE " << std::endl;
 	unsigned input;
 	std::cin >> input;
-	Superhero sup;
+	SuperheroesCollection sup;
 	if (input == 1) {
 
 		sup.storeAttackMode(name.c_str(), input);
@@ -505,152 +456,19 @@ bool Player::upgradeSuperhero(unsigned money, const  MyString& name)
 }
 
 void Player::storeMoneyInPurchase(const MyString& name, unsigned money)const {
-	std::ifstream infile("purchase.txt");
-	std::ofstream outfile("temp.txt");
-	if (!infile.is_open()) {
-		std::cerr << "Error: purchase.txt could not be opened." << std::endl;
-		return;
-	}
-	if (!outfile.is_open()) {
-		std::cerr << "Error: temp.txt could not be created." << std::endl;
-		infile.close();
-		return;
-	}
-
-	char line[256];
-	while (infile.getline(line, 256)) {
-
-		int fieldNum = 0;
-		char fields[5][50];
-		fieldNum = extractFields(line, fields, 5);
-		if (fieldNum == 5 && strcmp(fields[0], name.c_str()) == 0) {
-			if (money == 0) {
-				strcpy(fields[1], "0");
-			}
-			MyString reversedPointsStr = reverseBalance(money);
-			strcpy(fields[1], reversedPointsStr.c_str());
-		}
-		outfile << fields[0] << "," << fields[1] << "," << fields[2] << "," << fields[3] << "," << fields[4] << std::endl;
-
-
-	}
-	infile.close();
-	outfile.close();
-	remove("purchase.txt");
-	rename("temp.txt", "purchase.txt");
-
+	updateFile("purchase.txt", "temp.txt", name, money, 1);
 }
-
-
 
 void Player::storeMoney(const MyString& name, unsigned money)const {
-
-	std::ifstream infile("player.txt");
-	std::ofstream outfile("temp.txt");
-	if (!infile.is_open()) {
-		std::cerr << "Error: player.txt could not be opened." << std::endl; //do the same thing in other fc
-		return;
-	}
-	if (!outfile.is_open()) {
-		std::cerr << "Error: temp.txt could not be created." << std::endl;
-		infile.close();
-		return;
-	}
-
-	char line[256];
-	while (infile.getline(line, 256)) {
-		int fieldNum = 0;
-		char fields[5][50];
-		fieldNum = extractFields(line, fields, 5);
-		if (fieldNum == 5 && strcmp(fields[0], name.c_str()) == 0) {
-			//newwww....
-			if (money == 0) {
-				strcpy(fields[4], "0");
-			}
-			MyString reversedPointsStr = reverseBalance(money);
-			strcpy(fields[4], reversedPointsStr.c_str());
-
-		}
-		outfile << fields[0] << "," << fields[1] << "," << fields[2] << "," << fields[3] << "," << fields[4] << std::endl;
-
-
-	}
-	infile.close();
-	outfile.close();
-	remove("player.txt");
-	rename("temp.txt", "player.txt");
-
+	updateFile("player.txt", "temp.txt", name, money, 4);
 }
 
-
-
-void Player::storePointsInFileOfAttacker(unsigned points, const  MyString& name)const {
-
-	std::ifstream infile("purchase.txt");
-	std::ofstream outfile("temp.txt");
-	if (!infile.is_open()) {
-		std::cerr << "Error: purchase.txt could not be opened." << std::endl; //do the same thing in other fc
-		return;
-	}
-	if (!outfile.is_open()) {
-		std::cerr << "Error: temp.txt could not be created." << std::endl;
-		infile.close();
-		return;
-	}
-
-	char line[256];
-	while (infile.getline(line, 256)) {
-		int fieldNum = 0;
-		char fields[5][50];
-		fieldNum = extractFields(line, fields, 5);
-		if (fieldNum == 5 && strcmp(fields[2], name.c_str()) == 0) {
-			MyString reversedPointsStr = reverseBalance(points);
-			strcpy(fields[4], reversedPointsStr.c_str());
-		}
-		outfile << fields[0] << "," << fields[1] << "," << fields[2] << "," << fields[3] << "," << fields[4] << std::endl;
-
-
-	}
-	infile.close();
-	outfile.close();
-	remove("purchase.txt");
-	rename("temp.txt", "purchase.txt");
-
-
+void Player::storePointsInFileOfAttacker(unsigned points, const MyString& name) const {
+	updatePointsInFile("purchase.txt", "temp.txt", name, points, 5, 2);
 }
-void  Player::storePointsInFileOfAttackerofpurchase(unsigned points, const MyString& name)const {
 
-
-	std::ifstream infile("purchased_superheroes.txt");
-	std::ofstream outfile("temp.txt");
-	if (!infile.is_open()) {
-		std::cerr << "Error: purchased_superheroestxt could not be opened." << std::endl; //do the same thing in other fc
-		return;
-	}
-	if (!outfile.is_open()) {
-		std::cerr << "Error: temp.txt could not be created." << std::endl;
-		infile.close();
-		return;
-	}
-
-	char line[256];
-	while (infile.getline(line, 256)) {
-		int fieldNum = 0;
-		char fields[7][50];
-		fieldNum = extractFields(line, fields, 7);
-		if (fieldNum == 7 && strcmp(fields[0], name.c_str()) == 0) {
-
-			MyString reversedPointsStr = reverseBalance(points);
-			strcpy(fields[4], reversedPointsStr.c_str());
-		}
-		outfile << fields[0] << "," << fields[1] << "," << fields[2] << "," << fields[3] << "," << fields[4] << "," << fields[5] << "," << fields[6] << std::endl;
-
-
-	}
-	infile.close();
-	outfile.close();
-	remove("purchased_superheroes.txt");
-	rename("temp.txt", "purchased_superheroes.txt");
+void Player::storePointsInFileOfAttackerofpurchase(unsigned points, const MyString& name) const {
+	updatePointsInFile("purchased_superheroes.txt", "temp.txt", name, points, 7, 0);
 }
 
 
@@ -679,6 +497,7 @@ unsigned Player::playingTheGame(unsigned& pointsToBeDoubled, const MyString& nam
 
 void Player::attack() {
 	Superhero superhero;
+	SuperheroesCollection sup;
 	MyString nameOfSuperhero;
 	MyString name;
 
@@ -698,13 +517,13 @@ void Player::attack() {
 		//--------------------------------------------------------------------------ATTACKER PLAYER
 		setAttackingMode(nameOfSuperhero.c_str());
 
-		unsigned power = superhero.getPowerTypeOfSuperhero(nameOfSuperhero.c_str());///ADDED NEY .CSTR
+		unsigned power = sup.getPowerTypeOfSuperhero(nameOfSuperhero.c_str());///ADDED NEY .CSTR
 		showPowerType(power);
 
-		unsigned points = superhero.showPointsOfSuperhero(nameOfSuperhero.c_str());
+		unsigned points = sup.showPointsOfSuperhero(nameOfSuperhero.c_str());
 		std::cout << "ATTACKER,your superhero has:" << points << "points." << std::endl;
 
-		unsigned attack = superhero.showAttackMode(nameOfSuperhero.c_str());
+		unsigned attack = sup.showAttackMode(nameOfSuperhero.c_str());
 		showAttack(attack);
 		//--------------------------------------------------------------------------ATTACKED PLAYER
 
@@ -723,47 +542,25 @@ void Player::attack() {
 			std::cout << "Type the name of this superhero to finish the attack:" << std::endl;
 			std::cin >> attackedSuperhero;
 
-			unsigned powerAttacked = superhero.getPowerTypeOfSuperhero(attackedSuperhero.c_str());
+			unsigned powerAttacked = sup.getPowerTypeOfSuperhero(attackedSuperhero.c_str());
 			showPowerType(powerAttacked);
 
-			unsigned pointsAttacked = superhero.showPointsOfSuperhero(attackedSuperhero.c_str());//ATTACKED
+			unsigned pointsAttacked = sup.showPointsOfSuperhero(attackedSuperhero.c_str());//ATTACKED
 			std::cout << "The RIVAL has :" << pointsAttacked << "  points." << std::endl;
-			unsigned attackModeOfAttacked = superhero.showAttackMode(attackedSuperhero.c_str());
+			unsigned attackModeOfAttacked = sup.showAttackMode(attackedSuperhero.c_str());
 			showAttack(attackModeOfAttacked);
 
 
-			if (power == 0 && powerAttacked == 2) { //fire earth
+			if (power == 0 && powerAttacked == 2 || power == 2 && powerAttacked == 1 || power == 1 && powerAttacked == 0) { //fire earth
 				std::cout << "Congratulations ATTACKER ,your points are doubled.Now they  are:" << std::endl;
-				points = playingTheGame(points, nameOfSuperhero);
+				points = playingTheGame(points, nameOfSuperhero.c_str());
 				whoWonTheGame(points, pointsAttacked);
 			}
 
-			else if (power == 2 && powerAttacked == 0)
+			else if (power == 0 && powerAttacked == 1 || power == 2 && powerAttacked == 0 || power == 1 && powerAttacked == 2)
 			{ //earth fire
 				std::cout << "ATTACKED PLAYER  just got his points doubled.Now his points  are:" << std::endl;
 				pointsAttacked = playingTheGame(pointsAttacked, attackedSuperhero.c_str());
-				whoWonTheGame(points, pointsAttacked);
-			}
-			else if (power == 2 && powerAttacked == 1) { //earth water 
-				std::cout << "Congratulations ATTACKER ,your points are doubled.Now they  are:" << std::endl;
-				points = playingTheGame(points, nameOfSuperhero.c_str());
-				whoWonTheGame(points, pointsAttacked);
-			}
-			else if (power == 1 && powerAttacked == 2)
-			{ //water earth
-				std::cout << "ATTACKED PLAYER  just got his points doubled.Now his points  are:" << std::endl;
-				pointsAttacked = playingTheGame(pointsAttacked, attackedSuperhero.c_str());
-				whoWonTheGame(points, pointsAttacked); std::cout << "attacked won the game" << std::endl;
-			}
-			else if (power == 1 && powerAttacked == 0) {   //water fire
-				std::cout << "Congratulations ATTACKER ,your points are doubled.Now they  are:" << std::endl;
-
-				points = playingTheGame(points, nameOfSuperhero.c_str());
-				whoWonTheGame(points, pointsAttacked);
-			}
-			else if (power == 0 && powerAttacked == 1) { //fire water 
-				std::cout << "ATTACKED PLAYER  just got his points doubled.Now his points  are:" << std::endl;
-				pointsAttacked = playingTheGame(pointsAttacked, attackedSuperhero.c_str());//WORKS 
 				whoWonTheGame(points, pointsAttacked);
 			}
 
@@ -785,7 +582,6 @@ void Player::attack() {
 						else {
 							moneyOfAttacker = 1;
 						}
-						//moneyOfAttacker -= difference;
 						storeMoney(name.c_str(), moneyOfAttacker);
 						storeMoneyInPurchase(name.c_str(), moneyOfAttacker);
 						std::cout << "ATTACKED WON THE GAME!" << std::endl;
@@ -820,13 +616,12 @@ void Player::attack() {
 						storeMoneyInPurchase(name.c_str(), moneyOfAttacker);
 						storeMoney(playerName.c_str(), moneyOfAttackedPlayer);
 						storeMoneyInPurchase(playerName.c_str(), moneyOfAttackedPlayer);
-						//review these doesnt work
 
 						std::cout << "CONGRATULATIONS,ATTACKER WON THE GAME!" << std::endl;
 					}
 					else if (points < pointsAttacked) {
 						unsigned difference = pointsAttacked - points;
-						//moneyOfAttackedPlayer += 50;
+
 						difference *= 2;
 						if (moneyOfAttacker > difference) {
 							moneyOfAttacker -= difference;
@@ -835,7 +630,7 @@ void Player::attack() {
 							moneyOfAttacker = 1;
 						}
 						moneyOfAttackedPlayer += 50;
-						//moneyOfAttacker -= difference;
+
 						storeMoney(name.c_str(), moneyOfAttacker);
 						storeMoneyInPurchase(name.c_str(), moneyOfAttacker);
 						storeMoney(playerName.c_str(), moneyOfAttackedPlayer);
@@ -858,11 +653,9 @@ void Player::attack() {
 		}
 
 		else {
-
-			//std::cout << moneyOfAttackedPlayer << std::endl;
-			if (moneyOfAttackedPlayer <= points) { ///this part doesn work correct it
+			if (moneyOfAttackedPlayer <= points) {
 				moneyOfAttackedPlayer = 1;
-				moneyOfAttacker += 50;//make this a constant value
+				moneyOfAttacker += 50;
 				storeMoney(playerName.c_str(), moneyOfAttackedPlayer);
 				storeMoney(name.c_str(), moneyOfAttacker);
 				storeMoneyInPurchase(name.c_str(), moneyOfAttacker);
@@ -886,6 +679,19 @@ void Player::attack() {
 
 
 
+void Player::signUp()const
+{
+	MyString name, surname, email, password;
+	std::cout << "Enter player name: ";
+	std::cin >> name;
+	std::cout << "Enter player surname: ";
+	std::cin >> surname;
+	std::cout << "Enter player email: ";
+	std::cin >> email;
+	std::cout << "Enter  player password(Password must contatin at least one upper_case,one lower_case,one number or it will be invalid): " << std::endl;
+	std::cin >> password;
 
-
+	Player pl(name.c_str(), surname.c_str(), email.c_str(), password.c_str(), 150);
+	storeInFilePlayers(pl, "player.txt");
+}
 

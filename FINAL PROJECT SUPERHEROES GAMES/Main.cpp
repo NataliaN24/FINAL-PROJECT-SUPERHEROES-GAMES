@@ -6,9 +6,9 @@ void AdminFunctionalities() {
     int choice;
     Admin admin;
     MyString name, surname, email, password;
-    char PlayerEmail[50];
-    char PlayerPassword[50];
-    char playerName[50];
+    MyString PlayerEmail;
+    MyString  PlayerPassword;
+    MyString playerName;
     unsigned int money;
 
     do {
@@ -29,7 +29,7 @@ void AdminFunctionalities() {
             admin.addAnotherAdmin();
             break;
         case 2:
-            admin.seeInfoOfAdmins();
+            admin.seeInfo("admin.txt");
             break;
         case 3:
             admin.addSuperhero();
@@ -82,6 +82,11 @@ void AdminFunctionalities() {
 void displayMenuOFAdmin() {
     int choice;
     Admin admin;
+    MyString name;
+    MyString email;
+    MyString password;
+    MyString surname;
+
     do {
         std::cout << "==== Menu ====" << std::endl;
         std::cout << "1.  Log In" << std::endl;
@@ -91,7 +96,11 @@ void displayMenuOFAdmin() {
 
         switch (choice) {
         case 1:
-            if (admin.logIn()) {
+            std::cout << "Enter your email: ";
+            std::cin >> email;
+            std::cout << "Enter your password: ";
+            std::cin >> password;
+            if (admin.logIn(email, password, "admin.txt")) {
                 AdminFunctionalities();
             }
             else {
@@ -124,8 +133,10 @@ void PlayerFunctionalities(MyString email, MyString password, MyString name) {
     int choice;
     Player player;
     char superheroName[50];
-    unsigned int money;
+    unsigned int money = 0;//////!!!!!!!!!!!!!!!!!!!!!!!!!!
     bool bought = false;
+    MyString buyingInput;
+    unsigned moneyPlayer = 0;
 
     do {
         std::cout << "===== Player Menu =====" << std::endl;
@@ -135,52 +146,76 @@ void PlayerFunctionalities(MyString email, MyString password, MyString name) {
         std::cout << "4. Buy a superhero" << std::endl;
         std::cout << "5. Change attack mode." << std::endl;
         std::cout << "6. Attack a superhero" << std::endl;
-        std::cout << "7. Log out" << std::endl;
+        std::cout << "7. Upgrade a superhero" << std::endl;
+        std::cout << "8. Log out" << std::endl;
         std::cout << "=======================" << std::endl;
         std::cout << "Enter your choice: ";
         std::cin >> choice;
         //add for upgrade
         //fix the functions
+        try {
+            switch (choice) {
+            case 1:
 
-        switch (choice) {
-        case 1:
-            player.deletePlayerProfile(email, password, name);//DONE
-            return;
-            break;
-        case 2:
-            player.PlayersPLUSSuperheroes();
-            break;
-        case 3:
-            player.seeSuperheroes();
-            break;
-        case 4:
-            player.seeSuperheroes();
-            bought = player.checkIfPlayerhasPurchased(name);
-            if (bought) {
-                std::cout << "You already have a superhero." << std::endl;
+                player.deletePlayerProfile(email, password, name);//DONE
+                return;
+                break;
+            case 2:
+                player.seeInfoByPlayers();
+                break;
+            case 3:
+                player.seeSuperheroes();
+                break;
+            case 4:
+                player.seeSuperheroes();
+                bought = player.checkIfPlayerhasPurchased(name);
+                if (bought) {
+                    std::cout << "You already have a superhero.If you want to buy a new superhero ,would you like to delete the old one?Type yes or no." << std::endl;
+                    std::cin >> buyingInput;
+                    if (buyingInput == "yes" || "Yes") {
+                        player.deleteFromPurchase(name);
+                        std::wcout << "Now you can buy a new superhero" << std::endl;
+                    }
+                    else {
+                        player.buySuperhero();
+                    }
+                }
+                else {
+                    player.buySuperhero();
+                }
+                break;
+            case 5:
+                std::cout << "Enter name of superhero " << std::endl;
+                std::cin >> superheroName;
+                player.setAttackingMode(superheroName);
+                break;
+            case 6:
+                player.attack();
+                break;
+            case 7:
+                player.upgradeSuperhero(50, name);
+                break;
+
+            case 8:
+                moneyPlayer = player.showBalance(email);
+                moneyPlayer += 50;
+                player.storeMoney(name, moneyPlayer);//player gets money periodically when they are logged in
+                if (player.checkIfPlayerhasPurchased(name)) {
+                    player.storeMoneyInPurchase(name, moneyPlayer);
+                }
+                std::cout << "You logged out!...Exiting..." << std::endl;
+                break;
+            default:
+                //std::cout << "Invalid choice. Please try again." << std::endl;
+                throw std::runtime_error("Invalid choice. Please try again.");
+                break;
             }
-            else {
-                player.buySuperhero();
-            }
-            break;
-        case 5:
-            std::cout << "Enter name of superhero " << std::endl;
-            std::cin >> superheroName;
-            player.setAttackingMode(superheroName);
-            break;
-        case 6:
-            player.attack();
-            break;
-        case 7:
-            std::cout << "You logged out!...Exiting..." << std::endl;
-            break;
-        default:
-            std::cout << "Invalid choice. Please try again." << std::endl;
-            break;
         }
-
+        catch (const std::exception& e) {
+            std::cout << "Exception occurred: " << e.what() << std::endl;
+        }
         std::cout << std::endl;
-    } while (choice != 7);
+    } while (choice != 8);
 
 }
 
@@ -192,34 +227,37 @@ void displayMenuOfPlayer() {
     MyString email;
     MyString password;
     MyString name;
-    /* char email[50];
-     char password[50];
-     char name[50];*/
+
 
     do {
         std::cout << "===== Player Menu =====" << std::endl;
-        std::cout << "1. Log in" << std::endl;
-        std::cout << "2. Exit" << std::endl;
+        std::cout << "1.Sign up" << std::endl;
+        std::cout << "2. Log in" << std::endl;
+        std::cout << "3. Exit" << std::endl;
         std::cout << "=======================" << std::endl;
         std::cout << "Enter your choice: ";
         std::cin >> choice;
 
         switch (choice) {
         case 1:
+            player.signUp();
+            std::cout << "You signed up successfully.Log in to gain more access to game." << std::endl;
+            break;
+        case 2:
             std::cout << "Enter your name: ";
             std::cin >> name;
             std::cout << "Enter your email: ";
             std::cin >> email;
             std::cout << "Enter your password: ";
             std::cin >> password;
-            if (player.logIn(email, password)) {
+            if (player.logIn(email, password, "player.txt")) {
                 PlayerFunctionalities(email, password, name);
             }
             else {
                 std::cout << "Error.You can not have acces to this game functionalities.Try again..." << std::endl;
             }
             break;
-        case 2:
+        case 3:
             std::cout << "Exiting..." << std::endl;
             break;
 
@@ -235,6 +273,7 @@ void displayMenuOfPlayer() {
 
 
 int main() {
+
 
     int choice;
     do {

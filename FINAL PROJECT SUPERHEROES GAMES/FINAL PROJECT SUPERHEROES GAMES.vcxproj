@@ -131,6 +131,7 @@
     <ClInclude Include="MyString.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Superhero.h" />
+    <ClInclude Include="SuperheroesCollection.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="Utills.h" />
   </ItemGroup>
@@ -140,6 +141,7 @@
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Superhero.cpp" />
+    <ClCompile Include="SuperheroesCollection.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="Utills.cpp" />
   </ItemGroup>

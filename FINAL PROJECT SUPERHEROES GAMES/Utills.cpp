@@ -204,3 +204,26 @@ void updatePointsInFile(const MyString& inputFileName, const MyString& outputFil
 }
 
 
+unsigned getFieldValue(const MyString& filename, const MyString& name, int fieldIndex) {
+	std::ifstream inFile(filename.c_str());
+	if (!inFile) {
+		std::cout << "Error: " << filename << " could not be opened." << std::endl;
+		return 0;
+	}
+
+	char line[256];
+	while (inFile.getline(line, 256)) {
+		int fieldNum = 0;
+		char fields[7][50];
+		fieldNum = extractFields(line, fields, 7);
+
+		if (fieldNum == 7 && strcmp(fields[0], name.c_str()) == 0) {
+			inFile.close();
+			return extractBalance(fields[fieldIndex]);
+		}
+	}
+
+	std::cout << "Incorrect name. Please try again." << std::endl;
+	inFile.close();
+	return 0;
+}

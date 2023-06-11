@@ -2,6 +2,8 @@
 #include<iostream>
 #include<fstream>
 #include"MyString.h"
+#include"User.h"
+
 class Superhero
 {
 	MyString name;
@@ -34,22 +36,8 @@ public:
 	unsigned getPower()const;
 	unsigned getPurchasePrice()const;
 	bool getAttackMode()const;
-	void seeInfoOfSuperheroes();
-	PowerType readPowertypefrominput();
-	unsigned   getPowerTypeOfSuperhero(const MyString& name)const;
 
-	unsigned  showPriceOfSuperhero();
-	unsigned showPointsOfSuperhero(const MyString& name)const;
-	unsigned showAttackMode(const MyString& name)const;
-
-	void storeAttackMode(const MyString& name, unsigned input)const;
-	/*void setAttackMode(bool attackMode);
-	bool getAttackMode() const;*/
-
-
+	PowerType readPowertypefrominput(const MyString& input);
 
 
 };
-
-void storeInFileSuperheroes(const Superhero& superheroes, const  MyString& filename);
-
