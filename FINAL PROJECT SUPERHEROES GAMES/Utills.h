@@ -4,6 +4,7 @@
 #include"MyString.h"
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
+#include<fstream>
 
 
 bool isLower(char ch);
@@ -17,3 +18,6 @@ MyString reverseBalance(int balance);
 void showPowerType(unsigned power);
 void showAttack(unsigned attackMode);
 unsigned extractBalance(const char* balanceStr);
+
+void updateFile(const MyString& inputFileName, const MyString& outputFileName, const MyString& name, unsigned money, int index);//done works this is for money
+void updatePointsInFile(const MyString& inputFileName, const MyString& outputFileName, const MyString& name, unsigned points, int fieldNum, int fieldIndex);

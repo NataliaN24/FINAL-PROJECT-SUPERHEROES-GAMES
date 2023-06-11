@@ -2,7 +2,6 @@
 #include <iostream>
 #include<cstring>
 
-
 bool isLower(char ch) { return ch >= 'a' && ch <= 'z'; }
 
 bool isSymbol(char ch)
@@ -69,7 +68,7 @@ void reverseString(char* str, int length) {
 
 MyString reverseBalance(int balance) {
 	int n = 0, temp = balance;
-	char balanceStr[50];
+	char balanceStr[50]{};//added new
 	while (temp != 0) {
 		balanceStr[n++] = (temp % 10) + '0';
 		temp /= 10;
@@ -121,3 +120,87 @@ unsigned extractBalance(const char* balanceStr) {
 	}
 	return balance;
 }
+
+
+void updateFile(const MyString& inputFileName, const MyString& outputFileName, const MyString& name, unsigned money, int index) {
+	try {
+		std::ifstream infile(inputFileName.c_str());
+		std::ofstream outfile(outputFileName.c_str());
+
+		if (!infile || !outfile)
+			throw std::runtime_error("Error file  could not be opened.");
+
+		char line[256];
+		while (infile.getline(line, 256)) {
+			char fields[5][50];
+			extractFields(line, fields, 5);
+
+			if (strcmp(fields[0], name.c_str()) == 0) {
+				// Update the money/balance field
+				if (money == 0) {
+					strcpy(fields[index], "0");
+				}
+				else {
+					MyString reversedPointsStr = reverseBalance(money);
+					strcpy(fields[index], reversedPointsStr.c_str());
+				}
+				//strcpy(fields[index], reverseBalance(money).c_str());
+			}
+
+			outfile << fields[0] << "," << fields[1] << "," << fields[2] << "," << fields[3] << "," << fields[4] << std::endl;
+		}
+
+		infile.close();
+		outfile.close();
+
+
+		if (remove(inputFileName.c_str()) != 0 || rename(outputFileName.c_str(), inputFileName.c_str()) != 0) {
+			std::cout << "Error: Failed to update file." << std::endl;
+		}
+
+
+	}
+	catch (const std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
+}
+
+void updatePointsInFile(const MyString& inputFileName, const MyString& outputFileName, const MyString& name, unsigned points, int fieldNum, int fieldIndex) {
+	std::ifstream infile(inputFileName.c_str());
+	std::ofstream outfile(outputFileName.c_str());
+
+	if (!infile || !outfile) {
+		std::cerr << "Error: File could not be opened." << std::endl;
+		return;
+	}
+
+	char line[256];
+	while (infile.getline(line, 256)) {
+		int currFieldNum = 0;
+		char fields[7][50];
+		currFieldNum = extractFields(line, fields, fieldNum);
+		if (currFieldNum == fieldNum && strcmp(fields[fieldIndex], name.c_str()) == 0) {
+			MyString reversedPointsStr = reverseBalance(points);
+			strcpy(fields[4], reversedPointsStr.c_str());
+		}
+		for (int i = 0; i < currFieldNum; i++) {
+			outfile << fields[i];
+			if (i != currFieldNum - 1) {
+				outfile << ",";
+			}
+		}
+		outfile << std::endl;
+	}
+
+	infile.close();
+	outfile.close();
+
+	if (remove(inputFileName.c_str()) == 0 && rename(outputFileName.c_str(), inputFileName.c_str()) == 0) {
+		std::cout << " " << std::endl;
+	}
+	else {
+		std::cout << "Error: Failed to update file." << std::endl;
+	}
+}
+
+
