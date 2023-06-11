@@ -1,0 +1,12 @@
+Spiderman,Spider,sp,2,150,10,1
+Fire,Fire,ff,0,800,150,0
+Trixa,Tr,ff,1,500,150,1
+Megan,Megi,Meg,2,420,50,0
+Blum,Blu,blu,2,80,50,1
+Stela,Stel,st,0,150,420,0
+Ir,Ii,ii,2,150,150,0
+Leila,Lli,li,1,400,145,0
+Jj,Ll,jj,2,150,150,0
+Superman,Super,suprm,0,300,50,1
+Iron,Ir,iron,0,120,250,1
+Shila,Jjj,kkk,0,480,250,1

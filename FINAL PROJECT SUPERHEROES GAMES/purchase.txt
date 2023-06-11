@@ -1,0 +1,2 @@
+Georg,771,Iron,0,120
+Jum,2630,Shila,0,480
