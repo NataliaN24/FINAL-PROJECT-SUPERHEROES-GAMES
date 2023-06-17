@@ -77,7 +77,7 @@ void MyString::copyFrom(const MyString& other)
 
 MyString::MyString(MyString&& other) noexcept
 {
-	_data = other._data; // to function moveFrom ?
+	_data = other._data; 
 	other._data = nullptr;
 	_length = other._length;
 }
@@ -130,7 +130,7 @@ std::ostream& operator<<(std::ostream& os, const MyString& str)
 std::istream& operator>>(std::istream& is, MyString& str)
 {
 	char buff[1024];
-	is >> buff; // is.getLine(buff, 1024);
+	is >> buff; 
 
 	delete[] str._data;
 	str._length = strlen(buff);
@@ -166,82 +166,10 @@ bool operator!=(const MyString& lhs, const MyString& rhs)
 	return strcmp(lhs.c_str(), rhs.c_str()) != 0;
 }
 
-//MyString MyString::getline(std::istream& is)
-//{
-//	const size_t MAX_LEN = 256;
-//	char buffer[MAX_LEN];
-//	is.getline(buffer, MAX_LEN);
-//	return MyString(buffer);
-//}
-//MyString MyString::mygetline(std::istream& is, char delim)
-//{
-//	MyString result;
-//	char c;
-//	while (is.get(c) && c != delim) {
-//		result += c;
-//	}
-//	return result;
-//}
+
 void MyString::clear() {
 	delete[] _data;
 	_data = nullptr;
 	_length = 0;
 }
-
-//std::istream& mygetline(std::istream& is, MyString& str) {
-//	char c='\0';
-//	str.clear();
-//
-//	while (is.get(c) && c != '\n') {
-//		str += c;
-//	}
-//
-//	return is;
-//}
-
-//MyString& MyString::operator+=(char c)
-//{
-//	/*char* temp = new char[_length + 2];
-//	strcpy(temp, _data);
-//	temp[_length] = c;
-//	temp[_length + 1] = '\0';
-//	delete[] _data;
-//	_data = temp;
-//	_length++;
-//	return *this;*/
-//
-//
-//	char* temp = new (std::nothrow) char[_length + 2];
-//	if (temp == nullptr) {
-//		// Handle the error, e.g., throw an exception or return an error code.
-//		return *this;
-//	}
-//	/*std::strcpy(temp, _data);
-//	temp[_length] = c;
-//	temp[_length + 1] = '\0';
-//	delete[] _data;
-//	_data = temp;
-//	_length++;
-//	return *this;
-//}*/
-//
-//	try {
-//		std::strcpy(temp, _data);
-//		temp[_length] = c;
-//		temp[_length + 1] = '\0';
-//		delete[] _data;
-//		_data = temp;
-//		_length++;
-//	}
-//	catch (const std::exception& e) {
-//		// Handle the exception, e.g., log the error and return an error code.
-//		delete[] temp;
-//		return *this;
-//	}
-//	return *this;
-//
-//
-//}
-
-
 

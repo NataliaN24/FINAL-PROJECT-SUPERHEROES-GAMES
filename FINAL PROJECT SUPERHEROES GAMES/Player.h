@@ -25,7 +25,7 @@ public:
 	Player& operator=(Player&& other) noexcept;
 	~Player();
 
-	void signUp()const;
+	void signUp()const override ;
 	void setMoney(unsigned int money);
 	const unsigned int getMoney()const;
 
@@ -49,20 +49,20 @@ public:
 	void buySuperhero();//DONE WORKS
 
 
-	bool upgradeSuperhero(unsigned money, const  MyString& name);//DONE BUT CHECK
+	bool upgradeSuperhero(unsigned money, const  MyString& name);//DONE 
 	//void storePointsToFile(MyString filename, unsigned points, MyString name, int fieldIndex);//DONE BUT REVIEW TEST THEM
 
 	void storePointsInFileOfAttacker(unsigned points, const MyString& name)const;//DONE
 	void storePointsInFileOfAttackerofpurchase(unsigned points, const MyString& name)const;//DONE 
 	unsigned playingTheGame(unsigned& pointsToBeDoubled, const MyString& name);//DONE
 
-	void storeMoneyToFile(const MyString& filename, const MyString& name, unsigned money, int fieldIndex)const;//DONE
+	//void storeMoneyToFile(const MyString& filename, const MyString& name, unsigned money, int fieldIndex)const;//DONE
 	void storeMoney(const MyString& name, unsigned money)const;//DONE
 	void storeMoneyInPurchase(const MyString& name, unsigned money)const;//DONE
 
 	void attack();
-	void wayOfPlayingWhenPowersAreDiff(unsigned power, unsigned powerAttacked, unsigned points, unsigned pointsAttacked, const MyString& nameOfSuperhero, const MyString& attackedSuperhero);
-	void wayOfPlayingWhenPowersAreSame();
+	/*void wayOfPlayingWhenPowersAreDiff(unsigned power, unsigned powerAttacked, unsigned points, unsigned pointsAttacked, const MyString& nameOfSuperhero, const MyString& attackedSuperhero);
+	void wayOfPlayingWhenPowersAreSame();*/
 
 
 };

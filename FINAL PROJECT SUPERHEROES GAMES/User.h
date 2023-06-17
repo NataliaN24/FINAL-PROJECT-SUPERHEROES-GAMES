@@ -24,6 +24,7 @@ public:
 	const MyString& getSurname()const;
 	const MyString& getEmail()const;
 	const MyString& getPassword()const;
+
 	void seeInfo(const MyString& filename)const;//DONE WORKS
 	virtual void signUp()const = 0;
 

@@ -10,15 +10,12 @@ Player::Player(const MyString& name, const MyString& surname, const MyString& em
 
 void Player::copyFrom(const Player& other) {
 
-	// Copy Player-specific member variables
 	money = other.money;
 
 	if (other.purchased_superhero)
 		purchased_superhero = new Superhero(*other.purchased_superhero);
 	else
 		purchased_superhero = nullptr;
-
-
 
 }
 void Player::moveFrom(Player&& other)noexcept {

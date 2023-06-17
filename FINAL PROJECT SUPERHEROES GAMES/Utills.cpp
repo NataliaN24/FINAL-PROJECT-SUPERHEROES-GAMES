@@ -68,7 +68,7 @@ void reverseString(char* str, int length) {
 
 MyString reverseBalance(int balance) {
 	int n = 0, temp = balance;
-	char balanceStr[50]{};//added new
+	char balanceStr[50]{};
 	while (temp != 0) {
 		balanceStr[n++] = (temp % 10) + '0';
 		temp /= 10;
@@ -136,7 +136,7 @@ void updateFile(const MyString& inputFileName, const MyString& outputFileName, c
 			extractFields(line, fields, 5);
 
 			if (strcmp(fields[0], name.c_str()) == 0) {
-				// Update the money/balance field
+				
 				if (money == 0) {
 					strcpy(fields[index], "0");
 				}
@@ -144,7 +144,6 @@ void updateFile(const MyString& inputFileName, const MyString& outputFileName, c
 					MyString reversedPointsStr = reverseBalance(money);
 					strcpy(fields[index], reversedPointsStr.c_str());
 				}
-				//strcpy(fields[index], reverseBalance(money).c_str());
 			}
 
 			outfile << fields[0] << "," << fields[1] << "," << fields[2] << "," << fields[3] << "," << fields[4] << std::endl;

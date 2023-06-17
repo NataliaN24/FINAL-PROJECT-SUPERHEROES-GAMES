@@ -1,5 +1,2 @@
-Fff,Ff,ff,1,150,420,0
-Will,Amm,fl,2,50,10,0
-Spiderman,Spider,Man,2,200,60,0
-Iron Man,Stark,Genius,0,100,500,0
-Spiderman,Spider,spider,2,400,200,0
+Ironman,Man,man,0,100,50,0
+Fire,Firee,fireee,0,50,20,0

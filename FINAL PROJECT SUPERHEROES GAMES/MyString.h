@@ -10,7 +10,6 @@ class MyString
 
 	void copyFrom(const MyString& data);
 	void free();
-	//include the move constructor  IMPORTANT 
 	explicit MyString(size_t capacity);
 public:
 
@@ -30,11 +29,9 @@ public:
 
 	char& operator[](size_t index);
 	char operator[](size_t index) const;
-	//MyString& operator+=(char c);
+
 	const char* c_str() const;
-	//MyString getline(std::istream& is);
-	//MyString mygetline(std::istream& is, char delim = '\n');
-	//MyString  mygetline(std::istream& is, char delim);
+
 	void clear();
 	friend MyString operator+(const MyString& lhs, const MyString& rhs);
 	friend std::istream& operator>>(std::istream&, MyString& str);
@@ -48,4 +45,3 @@ bool operator>=(const MyString& lhs, const MyString& rhs);
 bool operator>(const MyString& lhs, const MyString& rhs);
 bool operator==(const MyString& lhs, const MyString& rhs);
 bool operator!=(const MyString& lhs, const MyString& rhs);
-//std::istream& mygetline(std::istream& is, MyString& str);

@@ -20,7 +20,7 @@ void AdminFunctionalities() {
         std::cout << "5. See info of players" << std::endl;
         std::cout << "6. Delete a player" << std::endl;
         std::cout << "7. See info of sold superheroes" << std::endl;
-        std::cout << "8. exit" << std::endl;
+        std::cout << "8. Exit" << std::endl;
         std::cout << "Enter your choice: ";
         std::cin >> choice;
 
@@ -89,9 +89,9 @@ void displayMenuOFAdmin() {
 
     do {
         std::cout << "==== Menu ====" << std::endl;
-        std::cout << "1.  Log In" << std::endl;
+        std::cout << "1.Log In" << std::endl;
         std::cout << "2.Sign up" << std::endl;
-        std::cout << "3. exit" << std::endl;
+        std::cout << "3.Exit" << std::endl;
         std::cin >> choice;
 
         switch (choice) {
@@ -104,7 +104,7 @@ void displayMenuOFAdmin() {
                 AdminFunctionalities();
             }
             else {
-                std::cout << "Error.You can not have acces to this game functionalities.Try again..." << std::endl;
+                std::cout << "Error.You can not have access to this game functionalities.Try again..." << std::endl;
             }
             break;
         case 2:
@@ -133,7 +133,7 @@ void PlayerFunctionalities(MyString email, MyString password, MyString name) {
     int choice;
     Player player;
     char superheroName[50];
-    unsigned int money = 0;//////!!!!!!!!!!!!!!!!!!!!!!!!!!
+    unsigned int money = 0;
     bool bought = false;
     MyString buyingInput;
     unsigned moneyPlayer = 0;
@@ -151,8 +151,8 @@ void PlayerFunctionalities(MyString email, MyString password, MyString name) {
         std::cout << "=======================" << std::endl;
         std::cout << "Enter your choice: ";
         std::cin >> choice;
-        //add for upgrade
-        //fix the functions
+    
+
         try {
             switch (choice) {
             case 1:
@@ -199,14 +199,14 @@ void PlayerFunctionalities(MyString email, MyString password, MyString name) {
             case 8:
                 moneyPlayer = player.showBalance(email);
                 moneyPlayer += 50;
-                player.storeMoney(name, moneyPlayer);//player gets money periodically when they are logged in
+                player.storeMoney(name, moneyPlayer);
                 if (player.checkIfPlayerhasPurchased(name)) {
                     player.storeMoneyInPurchase(name, moneyPlayer);
                 }
                 std::cout << "You logged out!...Exiting..." << std::endl;
                 break;
             default:
-                //std::cout << "Invalid choice. Please try again." << std::endl;
+              
                 throw std::runtime_error("Invalid choice. Please try again.");
                 break;
             }
@@ -232,8 +232,8 @@ void displayMenuOfPlayer() {
     do {
         std::cout << "===== Player Menu =====" << std::endl;
         std::cout << "1.Sign up" << std::endl;
-        std::cout << "2. Log in" << std::endl;
-        std::cout << "3. Exit" << std::endl;
+        std::cout << "2.Log in" << std::endl;
+        std::cout << "3.Exit" << std::endl;
         std::cout << "=======================" << std::endl;
         std::cout << "Enter your choice: ";
         std::cin >> choice;

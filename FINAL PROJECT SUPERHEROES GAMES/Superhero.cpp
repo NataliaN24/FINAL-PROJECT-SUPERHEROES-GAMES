@@ -83,11 +83,6 @@ bool Superhero::getAttackMode()const {
 	return attackMode;
 }
 
-
-//Superhero* Superhero::clone()const {
-//	return new Superhero(*this);
-//}
-
 Superhero::PowerType readPowertypefrominput(const MyString& input) {
 
 	if (input == "fire") {

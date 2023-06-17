@@ -1,2 +1,2 @@
-Georg,771,Iron,0,120
-Jum,2630,Shila,0,480
+Georg,116,Superman,0,100
+Jum,2490,Spiderman,0,200

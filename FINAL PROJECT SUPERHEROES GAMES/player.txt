@@ -1,5 +1,7 @@
-Georg,Gig,gag,1Gs,771
-Jim,Hh,lim&,Ji1,10
-Jam,Ho,lim£,Ji4,510
-Jum,Hl,lim^,Ji3,2630
+Billi,Bill,bill,b1B,20
+Joshua,Josh,joshi,Jo1,600
+Georg,Gig,gag,1Gs,116
+Jam,Ho,lim£,Ji4,470
+Jum,Hl,lim^,Ji3,2490
 Juh,Hj,lim(,Ji2,572
+Ge,Go,go,Go1,1

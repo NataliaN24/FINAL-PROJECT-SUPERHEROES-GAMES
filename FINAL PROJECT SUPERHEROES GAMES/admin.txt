@@ -10,3 +10,5 @@ Ermal,Mali,ma,E1m
 Jjj,JJJJ,jjasa,j1S
 Him,Has,kim,H1s
 Kim,Kau,Ll,Ki2
+Ammi,Am,Am@,A1m
+Bryce,Bri,he,b1D

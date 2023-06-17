@@ -122,9 +122,6 @@ void SuperheroesCollection::copyFrom(const  SuperheroesCollection& other) {
 	superheroes = new Superhero * [other.capacity];
 	size = other.size;
 	capacity = other.capacity;
-	//for (size_t i = 0; i < size; i++) {
-	//	//superheroes[i] = new Superhero(*other.superheroes[i]); // Create new Superhero objects and copy the contents buffer overruns?
-	//}
 	superheroes = other.superheroes;
 
 }
