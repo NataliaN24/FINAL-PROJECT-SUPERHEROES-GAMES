@@ -1,5 +1,5 @@
 # FINAL PROJECT SUPERHEROES GAMES
-_This is a game model for playig with superheroes.The language of programming used for it is C++_
+_This is a game model for playing with superheroes.The language of programming used for it is C++_
 
 **Joro and his friends are big fans of superheroes and comics. He wants to create his own superhero game, where different players can buy superheroes, attack other users' superheroes, or put their superheroes in protected mode. Each player is allowed a maximum of 3 moves per game entry. The results are calculated according to the funds (money) that a player has.**
 
