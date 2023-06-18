@@ -28,7 +28,7 @@ Both types of users are characterized by two names, an email, a username and a p
 | - See market of superheroes  | 
 | - Purchase a superhero and remove the hero from the market after purchase  | 
 | - Attack a superhero |
-|- Change the postion from deffense mode to attack mode or opposite|
+|- Change the position from deffense mode to attack mode or opposite|
 
 ##  DESCRIBING SUPERHEROES 
 **A superhero has:**
