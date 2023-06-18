@@ -256,7 +256,6 @@ void displayMenuOfPlayer()
     MyString password;
     MyString name;
 
-
     do
     {
         std::cout << "===== Player Menu =====" << std::endl;
