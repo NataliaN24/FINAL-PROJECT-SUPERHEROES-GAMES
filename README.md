@@ -45,10 +45,10 @@ Both types of users are characterized by two names, an email, a username and a p
 * If a player attacks another player's superhero, their power types are first compared. Each type of power defeats another as follows: Fire->Earth->Water->Fire(FIRE IS MORE DOMINANT THAN EARTH ,EARTH THAN WATER AND WATER THAN FIRE)
 *  If the attacking player has a dominant power type, then their superhero points in that battle are doubled and the power comparison rules listed below apply. In case the attacking player has the dominant power type, then the opposing superhero's points are doubled and the superheroes' power is compared again.
 *  ->In case the power types match and the attacked player's superhero is in attack mode, the power of the superheroes is compared. A defeated superhero is always destroyed by the defeated player's collection. The strength comparison is as follows:
-->> If the attacking player's superhero has more power than his opponent's, then the attacked player loses money equal to the power difference of the competing superheroes, and the attacking player wins an amount equal to the same difference.
-->> If the attacking player's superhero has less power than the attacked, then the attacked wins an amount z and the attacker loses money worth 2 times the difference in the powers of the competing superheroes.
-->> If the superheroes are of equal strength, then the attacked player does not change and loses money, but the attacker loses an amount k.
-In case the attacking player attacks a superhero who is in defensive mode, then the attacked player does not lose any money (but may lose their hero) and scoring a winner is as above.
+* ->> If the attacking player's superhero has more power than his opponent's, then the attacked player loses money equal to the power difference of the competing superheroes, and the attacking player wins an amount equal to the same difference.
+* ->> If the attacking player's superhero has less power than the attacked, then the attacked wins an amount z and the attacker loses money worth 2 times the difference in the powers of the competing superheroes.
+* ->> If the superheroes are of equal strength, then the attacked player does not change and loses money, but the attacker loses an amount k.
+* ->> In case the attacking player attacks a superhero who is in defensive mode, then the attacked player does not lose any money (but may lose their hero) and scoring a winner is as above.
 ### ADDITIONAL
 * Players, apart from fighting, also get money j periodically.A time period is one cycle in which all players are logged in.**The way that I have implemented it is ,that after player chooses to log out the money is stored automatically in his datas**
 * When adding a new player, he starts with an amount of m.**The amount is choosen by the admin who adds the player .Otherwise if the player signs up ,a default  amount of money is stored automatically in his money balance**
