@@ -60,9 +60,10 @@ When user enters the program the _**Main Menu**_ is appeared where he has to cho
 * To enter as a player
 * To exit the program
 
- _In the **first case** ,if he  chooses to enter as an admin ,again he has to choose **3** commands,to sign up,log in,or exit_
-  1.After signing up he must log in to see and perform admin functionalities.
-  2.After logging in ,the  list of admin functionalities that is listed above  appears and admin has to choose one of the commands to perform.
+ _In the **first case** ,if he  chooses to enter as an admin ,again he has to choose **3** commands,to sign up,log in,or exit_:
+ 
+ * 1.After signing up he must log in to see and perform admin functionalities.
+ * 2.After logging in ,the  list of admin functionalities that is listed above  appears and admin has to choose one of the commands to perform.
   
  ![Screenshot 2023-06-18 130757](https://github.com/NataliaN24/FINAL-PROJECT-SUPERHEROES-GAMES/assets/115610226/d6f607e1-739d-4bcd-afbb-ebaa4c010681)
 
