@@ -69,7 +69,7 @@ When user enters the program the _**Main Menu**_ is appeared where he has to cho
 
 _In the **second  case** ,if user   chooses to enter as a player ,again he has to choose **3** commands,to sign up,log in,or exit_
 
-![Screenshot 2023-06-18 130757](https://github.com/NataliaN24/FINAL-PROJECT-SUPERHEROES-GAMES/assets/115610226/4e24c4f5-f788-4087-a881-6f3098641d39)
+![Screenshot 2023-06-18 131027](https://github.com/NataliaN24/FINAL-PROJECT-SUPERHEROES-GAMES/assets/115610226/b814f110-fc61-4128-a824-b60a1f632fb5)
 
 _When player chooses to log out he will **gain money** in his balance._
 
