@@ -44,7 +44,7 @@ Both types of users are characterized by two names, an email, a username and a p
 * If a player attacks another player who does not have any superheroes, the attacked player's money is reduced by the number of attack points that the attacking superhero had (in case the attacked player has less money than the attacking superhero's power, then his balance becomes $0), and the attacking player wins x amount of money.
 * If a player attacks another player's superhero, their power types are first compared. Each type of power defeats another as follows: Fire->Earth->Water->Fire(FIRE IS MORE DOMINANT THAN EARTH ,EARTH THAN WATER AND WATER THAN FIRE)
 *  If the attacking player has a dominant power type, then their superhero points in that battle are doubled and the power comparison rules listed below apply. In case the attacking player has the dominant power type, then the opposing superhero's points are doubled and the superheroes' power is compared again.
-*  ->In case the power types match and the attacked player's superhero is in attack mode, the power of the superheroes is compared. A defeated superhero is always destroyed by the defeated player's collection. The strength comparison is as follows:
+* ->> In case the power types match and the attacked player's superhero is in attack mode, the power of the superheroes is compared. A defeated superhero is always destroyed by the defeated player's collection. The strength comparison is as follows:
 * ->> If the attacking player's superhero has more power than his opponent's, then the attacked player loses money equal to the power difference of the competing superheroes, and the attacking player wins an amount equal to the same difference.
 * ->> If the attacking player's superhero has less power than the attacked, then the attacked wins an amount z and the attacker loses money worth 2 times the difference in the powers of the competing superheroes.
 * ->> If the superheroes are of equal strength, then the attacked player does not change and loses money, but the attacker loses an amount k.
@@ -54,7 +54,8 @@ Both types of users are characterized by two names, an email, a username and a p
 * When adding a new player, he starts with an amount of m.**The amount is choosen by the admin who adds the player .Otherwise if the player signs up ,a default  amount of money is stored automatically in his money balance**
 * Players can  upgrade their superheroes by paying money.**They can upgrade superheroes if they have enough money**
  
-### CLARIFICATIONS
+### RUN THE PROGRAM
+When user enters the program 
 
  
 
