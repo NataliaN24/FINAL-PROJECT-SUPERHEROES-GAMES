@@ -7,13 +7,17 @@
 class SuperheroesCollection
 {
 	Superhero** superheroes;
+
 	size_t size;
 	size_t capacity;
+
 	void copyFrom(const  SuperheroesCollection& other);
 	void moveFrom(SuperheroesCollection&& other)noexcept;
 	void resize();
 	void free();
+
 public:
+
 	SuperheroesCollection() = default;
 	~SuperheroesCollection();
 	SuperheroesCollection(const SuperheroesCollection& other);
@@ -28,7 +32,6 @@ public:
 	unsigned showAttackMode(const MyString& name)const;
 
 	void storeAttackMode(const MyString& name, unsigned input)const;
-
 
 };
 

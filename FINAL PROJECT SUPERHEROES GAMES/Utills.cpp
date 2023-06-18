@@ -2,20 +2,23 @@
 #include <iostream>
 #include<cstring>
 
-bool isLower(char ch) { return ch >= 'a' && ch <= 'z'; }
+bool isLower(char ch) 
+{
+	return ch >= 'a' && ch <= 'z'; 
+}
 
 bool isSymbol(char ch)
 {
 	return ch >= 'a' && ch <= 'z' || ch >= 'A' && ch <= 'Z';
 }
 
-
 void toUpper(char& ch)
 {
 	if (!isSymbol(ch))
 		throw std::invalid_argument("The given character is not a letter");
 
-	if (isLower(ch)) {
+	if (isLower(ch)) 
+	{
 		ch = ch - ('a' - 'A');
 	}
 }
@@ -43,10 +46,12 @@ unsigned convertToNumber(const char* str)
 	return result;
 }
 
-int extractFields(const char* line, char fields[][50], int maxFields) {
+int extractFields(const char* line, char fields[][50], int maxFields)
+{
 	char* field = strtok(const_cast<char*>(line), ",");
 	int fieldNum = 0;
-	while (field != NULL && fieldNum < maxFields) {
+	while (field != NULL && fieldNum < maxFields) 
+	{
 		strcpy(fields[fieldNum], field);
 		fieldNum++;
 		field = strtok(NULL, ",");
@@ -54,10 +59,12 @@ int extractFields(const char* line, char fields[][50], int maxFields) {
 	return fieldNum;
 }
 
-void reverseString(char* str, int length) {
+void reverseString(char* str, int length)
+{
 	int start = 0;
 	int end = length - 1;
-	while (start < end) {
+	while (start < end) 
+	{
 		char temp = str[start];
 		str[start] = str[end];
 		str[end] = temp;
@@ -66,16 +73,19 @@ void reverseString(char* str, int length) {
 	}
 }
 
-MyString reverseBalance(int balance) {
+MyString reverseBalance(int balance)
+{
 	int n = 0, temp = balance;
 	char balanceStr[50]{};
-	while (temp != 0) {
+	while (temp != 0)
+	{
 		balanceStr[n++] = (temp % 10) + '0';
 		temp /= 10;
 	}
 	balanceStr[n] = '\0';
 
-	for (int i = 0, j = n - 1; i < j; i++, j--) {
+	for (int i = 0, j = n - 1; i < j; i++, j--) 
+	{
 		char temp = balanceStr[i];
 		balanceStr[i] = balanceStr[j];
 		balanceStr[j] = temp;
@@ -84,27 +94,34 @@ MyString reverseBalance(int balance) {
 	return MyString(balanceStr);
 }
 
-void showPowerType(unsigned power) {
-	if (power == 0) {
+void showPowerType(unsigned power) 
+{
+	if (power == 0)
+	{
 		std::cout << "This superhero's power type is fire.:" << std::endl;
 	}
-	else if (power == 1) {
+	else if (power == 1) 
+	{
 		std::cout << "This superhero's power type is water.:" << std::endl;
 	}
-	else if (power == 2) {
+	else if (power == 2)
+	{
 		std::cout << "This  superhero's power type is earth.:" << std::endl;
 	}
-	else {
+	else
+	{
 		std::cout << "This superhero's has no valid power type.:" << std::endl;
 	}
 }
 
 void showAttack(unsigned attackMode)
 {
-	if (attackMode == 0) {
+	if (attackMode == 0) 
+	{
 		std::cout << "This superhero is set in defense mode." << std::endl;
 	}
-	else if (attackMode == 1) {
+	else if (attackMode == 1) 
+	{
 		std::cout << "This superhero is set in attacking mode." << std::endl;
 	}
 	else
@@ -113,17 +130,21 @@ void showAttack(unsigned attackMode)
 	}
 
 }
-unsigned extractBalance(const char* balanceStr) {
+unsigned extractBalance(const char* balanceStr) 
+{
 	unsigned balance = 0;
-	for (size_t i = 0; i < strlen(balanceStr); i++) {
+	for (size_t i = 0; i < strlen(balanceStr); i++)
+	{
 		balance = balance * 10 + (balanceStr[i] - '0');
 	}
 	return balance;
 }
 
 
-void updateFile(const MyString& inputFileName, const MyString& outputFileName, const MyString& name, unsigned money, int index) {
-	try {
+void updateFile(const MyString& inputFileName, const MyString& outputFileName, const MyString& name, unsigned money, int index) 
+{
+	try 
+	{
 		std::ifstream infile(inputFileName.c_str());
 		std::ofstream outfile(outputFileName.c_str());
 
@@ -135,12 +156,14 @@ void updateFile(const MyString& inputFileName, const MyString& outputFileName, c
 			char fields[5][50];
 			extractFields(line, fields, 5);
 
-			if (strcmp(fields[0], name.c_str()) == 0) {
-				
-				if (money == 0) {
+			if (strcmp(fields[0], name.c_str()) == 0) 
+			{
+				if (money == 0) 
+				{
 					strcpy(fields[index], "0");
 				}
-				else {
+				else
+				{
 					MyString reversedPointsStr = reverseBalance(money);
 					strcpy(fields[index], reversedPointsStr.c_str());
 				}
@@ -153,38 +176,43 @@ void updateFile(const MyString& inputFileName, const MyString& outputFileName, c
 		outfile.close();
 
 
-		if (remove(inputFileName.c_str()) != 0 || rename(outputFileName.c_str(), inputFileName.c_str()) != 0) {
+		if (remove(inputFileName.c_str()) != 0 || rename(outputFileName.c_str(), inputFileName.c_str()) != 0)
+		{
 			std::cout << "Error: Failed to update file." << std::endl;
 		}
-
-
 	}
 	catch (const std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
 }
 
-void updatePointsInFile(const MyString& inputFileName, const MyString& outputFileName, const MyString& name, unsigned points, int fieldNum, int fieldIndex) {
+void updatePointsInFile(const MyString& inputFileName, const MyString& outputFileName, const MyString& name, unsigned points, int fieldNum, int fieldIndex) 
+{
 	std::ifstream infile(inputFileName.c_str());
 	std::ofstream outfile(outputFileName.c_str());
 
-	if (!infile || !outfile) {
+	if (!infile || !outfile) 
+	{
 		std::cerr << "Error: File could not be opened." << std::endl;
 		return;
 	}
 
 	char line[256];
-	while (infile.getline(line, 256)) {
+	while (infile.getline(line, 256)) 
+	{
 		int currFieldNum = 0;
 		char fields[7][50];
 		currFieldNum = extractFields(line, fields, fieldNum);
-		if (currFieldNum == fieldNum && strcmp(fields[fieldIndex], name.c_str()) == 0) {
+		if (currFieldNum == fieldNum && strcmp(fields[fieldIndex], name.c_str()) == 0)
+		{
 			MyString reversedPointsStr = reverseBalance(points);
 			strcpy(fields[4], reversedPointsStr.c_str());
 		}
-		for (int i = 0; i < currFieldNum; i++) {
+		for (int i = 0; i < currFieldNum; i++)
+		{
 			outfile << fields[i];
-			if (i != currFieldNum - 1) {
+			if (i != currFieldNum - 1) 
+			{
 				outfile << ",";
 			}
 		}
@@ -194,29 +222,34 @@ void updatePointsInFile(const MyString& inputFileName, const MyString& outputFil
 	infile.close();
 	outfile.close();
 
-	if (remove(inputFileName.c_str()) == 0 && rename(outputFileName.c_str(), inputFileName.c_str()) == 0) {
+	if (remove(inputFileName.c_str()) == 0 && rename(outputFileName.c_str(), inputFileName.c_str()) == 0) 
+	{
 		std::cout << " " << std::endl;
 	}
-	else {
+	else
+	{
 		std::cout << "Error: Failed to update file." << std::endl;
 	}
 }
 
-
-unsigned getFieldValue(const MyString& filename, const MyString& name, int fieldIndex) {
+unsigned getFieldValue(const MyString& filename, const MyString& name, int fieldIndex)
+{
 	std::ifstream inFile(filename.c_str());
-	if (!inFile) {
+	if (!inFile) 
+	{
 		std::cout << "Error: " << filename << " could not be opened." << std::endl;
 		return 0;
 	}
 
 	char line[256];
-	while (inFile.getline(line, 256)) {
+	while (inFile.getline(line, 256)) 
+	{
 		int fieldNum = 0;
 		char fields[7][50];
 		fieldNum = extractFields(line, fields, 7);
 
-		if (fieldNum == 7 && strcmp(fields[0], name.c_str()) == 0) {
+		if (fieldNum == 7 && strcmp(fields[0], name.c_str()) == 0)
+		{
 			inFile.close();
 			return extractBalance(fields[fieldIndex]);
 		}

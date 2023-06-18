@@ -1,6 +1,5 @@
 #include "MyString.h"
 
-
 MyString::MyString(size_t capacity)
 {
 	_length = capacity - 1;
@@ -50,7 +49,6 @@ MyString& MyString::operator=(const MyString& other)
 	}
 	return *this;
 }
-
 
 void MyString::free()
 {
@@ -109,7 +107,6 @@ MyString MyString::substr(size_t begin, size_t howMany) const
 	if (begin + howMany > _length)
 		throw std::length_error("Error, Substr out of range");
 
-
 	MyString res(howMany + 1);
 	for (int i = 0; i < howMany; i++)
 		res._data[i] = _data[begin + i];
@@ -139,7 +136,6 @@ std::istream& operator>>(std::istream& is, MyString& str)
 	return is;
 }
 
-
 bool operator<(const MyString& lhs, const MyString& rhs)
 {
 	return strcmp(lhs.c_str(), rhs.c_str()) < 0;
@@ -149,27 +145,29 @@ bool operator<=(const MyString& lhs, const MyString& rhs)
 {
 	return strcmp(lhs.c_str(), rhs.c_str()) <= 0;
 }
+
 bool operator>=(const MyString& lhs, const MyString& rhs)
 {
 	return strcmp(lhs.c_str(), rhs.c_str()) >= 0;
 }
+
 bool operator>(const MyString& lhs, const MyString& rhs)
 {
 	return strcmp(lhs.c_str(), rhs.c_str()) > 0;
 }
+
 bool operator==(const MyString& lhs, const MyString& rhs)
 {
 	return strcmp(lhs.c_str(), rhs.c_str()) == 0;
 }
+
 bool operator!=(const MyString& lhs, const MyString& rhs)
 {
 	return strcmp(lhs.c_str(), rhs.c_str()) != 0;
 }
-
 
 void MyString::clear() {
 	delete[] _data;
 	_data = nullptr;
 	_length = 0;
 }
-

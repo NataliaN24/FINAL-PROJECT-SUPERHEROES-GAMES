@@ -1,2 +1,0 @@
-Ironman,Man,man,0,100,50,0
-Fire,Firee,fireee,0,50,20,0

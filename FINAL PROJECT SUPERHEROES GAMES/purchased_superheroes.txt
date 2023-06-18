@@ -1,2 +1,4 @@
 Superman,Super,super,0,100,10,0
 Spiderman,Spider,sp,0,200,60,1
+Ironman,Man,man,1,200,50,1
+Fire,Firee,fireee,0,100,20,1

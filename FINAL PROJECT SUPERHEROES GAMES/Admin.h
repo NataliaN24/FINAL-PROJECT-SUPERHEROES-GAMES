@@ -11,7 +11,6 @@
 #include<iostream>
 #include <stdexcept> 
 
-
 class Admin :public User
 {
 
@@ -19,17 +18,17 @@ public:
 	Admin() = default;
 	Admin(const MyString& name, const MyString& surname, const MyString& email, const MyString& password);
 
-	Player& addPlayers(const MyString& name, const  MyString& surname, const  MyString& email, const  MyString& password, const  unsigned int money)const;//DONE YES
+	Player& addPlayers(const MyString& name, const  MyString& surname, const  MyString& email, const  MyString& password, const  unsigned int money)const;
 
-	void signUp()const;//DONE YES
-	void addAnotherAdmin()const;//DONE YES
+	void signUp()const;
+	void addAnotherAdmin()const;
 
-	Superhero& addSuperhero();//DONE YES
-	void seeInfoOfPlayers()const;//DONE YES
-	void seeInfoOfSoldSuperheroes()const;//DONE 
-	void deletePlayer(const MyString& email, const MyString& password, const MyString& playerName);//DONE YES
+	Superhero& addSuperhero();
+	void seeInfoOfPlayers()const;
+	void seeInfoOfSoldSuperheroes()const; 
+	void deletePlayer(const MyString& email, const MyString& password, const MyString& playerName);
 };
-Superhero getSuperheroDetails();//DONE
-void addSuperhero1(const Superhero& superhero);//DONE
-void addSuperheroes3(int numSuperheroes);//DONE
-void storeInFile(const Admin& admins, const MyString& filename);//DONE
+Superhero getSuperheroDetails();
+void addSuperhero1(const Superhero& superhero);
+void addSuperheroes3(int numSuperheroes);
+void storeInFile(const Admin& admins, const MyString& filename);

@@ -12,3 +12,5 @@ Him,Has,kim,H1s
 Kim,Kau,Ll,Ki2
 Ammi,Am,Am@,A1m
 Bryce,Bri,he,b1D
+Maria,Mar,maria,M1a
+Ang,Ang,ang,A1g

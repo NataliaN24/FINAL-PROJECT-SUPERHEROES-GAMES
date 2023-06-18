@@ -39,5 +39,4 @@ public:
 
 	PowerType readPowertypefrominput(const MyString& input);
 
-
 };

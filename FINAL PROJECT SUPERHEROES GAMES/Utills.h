@@ -2,16 +2,18 @@
 #include<iostream>
 #include<cstring>
 #include"MyString.h"
+#include<fstream>
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
-#include<fstream>
-
+//functions from 1-5 are taken from github of A.Dimitiriev.
 
 bool isLower(char ch);
 bool isSymbol(char ch);
 void toUpper(char& str);
 unsigned charToDigit(char ch);
 unsigned convertToNumber(const char* str);
+
+//These are functions that I have added.
 int extractFields(const char* line, char fields[][50], int maxFields);
 void reverseString(char* str, int length);
 MyString reverseBalance(int balance);

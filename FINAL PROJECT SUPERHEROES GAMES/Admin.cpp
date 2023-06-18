@@ -2,7 +2,6 @@
 
 Admin::Admin(const MyString& name, const MyString& surname, const MyString& email, const MyString& password) :User(name, surname, email, password) {}
 
-
 void Admin::signUp()const
 {
 	MyString name, surname, email, password;
@@ -19,7 +18,8 @@ void Admin::signUp()const
 	storeInFile(admin, "admin.txt");
 }
 
-void Admin::addAnotherAdmin()const {
+void Admin::addAnotherAdmin()const
+{
 	signUp();
 }
 
@@ -36,7 +36,8 @@ void storeInFile(const Admin& admins, const  MyString& filename)
 }
 
 
-Superhero getSuperheroDetails() {
+Superhero getSuperheroDetails()
+{
 	std::cout << std::endl;
 	std::cout << "Name of superhero:" << std::endl;
 	MyString name;
@@ -72,35 +73,42 @@ Superhero getSuperheroDetails() {
 
 
 	Superhero::PowerType power_type;
-	if (pwt == "fire") {
+	if (pwt == "fire") 
+	{
 		power_type = Superhero::PowerType::fire;
 	}
-	else if (pwt == "water") {
+	else if (pwt == "water") 
+	{
 		power_type = Superhero::PowerType::water;
 	}
-	else {
+	else 
+	{
 		power_type = Superhero::PowerType::earth;
 	}
 
 	return Superhero(name.c_str(), surname.c_str(), nickname.c_str(), power_type, power, purchase, sold);
 }
 
-void addSuperhero1(const  Superhero& superhero) {
+void addSuperhero1(const  Superhero& superhero) 
+{
 	storeInFileSuperheroes(superhero, "superheroes.txt");
 }
 
-void addSuperheroes3(int numSuperheroes) {
+void addSuperheroes3(int numSuperheroes)
+{
 	for (int i = 0; i < numSuperheroes; i++) {
 		Superhero superhero = getSuperheroDetails();
 		addSuperhero1(superhero);
 	}
 }
 
-Superhero& Admin::addSuperhero() {
+Superhero& Admin::addSuperhero()
+{
 	std::ifstream infile("superheroes.txt");
 	bool emptyfile = infile.peek() == std::ifstream::traits_type::eof();
 
-	if (emptyfile) {
+	if (emptyfile)
+	{
 		addSuperheroes3(3);
 	}
 
@@ -109,29 +117,33 @@ Superhero& Admin::addSuperhero() {
 
 	Superhero* superheroes = new Superhero(superhero);
 	return *superheroes;
-}//DONE
+}
 
 
-Player& Admin::addPlayers(const MyString& name, const  MyString& surname, const  MyString& email, const MyString& password, const  unsigned int money)const { //DONE
+Player& Admin::addPlayers(const MyString& name, const  MyString& surname, const  MyString& email, const MyString& password, const  unsigned int money)const 
+{ 
 	Player* player = new Player(name, surname, email, password, money);
 	storeInFilePlayers(*player, "player.txt");
 	return *player;
 }
 
-void Admin::seeInfoOfPlayers()const { //DONE
+void Admin::seeInfoOfPlayers()const
+{ 
 	Player player;
 	player.seeInfo("player.txt");
-
 }
 
-void Admin::deletePlayer(const MyString& email, const MyString& password, const MyString& playerName) {
+void Admin::deletePlayer(const MyString& email, const MyString& password, const MyString& playerName) 
+{
 	Player player;
 	player.deletePlayerProfile(email, password, playerName);
 }
 
-void Admin::seeInfoOfSoldSuperheroes()const {
+void Admin::seeInfoOfSoldSuperheroes()const 
+{
 	std::ifstream inFile("purchased_superheroes.txt");
-	if (inFile) {
+	if (inFile) 
+	{
 		std::cout << "List of sold superheroes:" << std::endl;
 
 		char line[256];

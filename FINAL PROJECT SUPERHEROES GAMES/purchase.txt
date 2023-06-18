@@ -1,2 +1,2 @@
-Georg,116,Superman,0,100
-Jum,2490,Spiderman,0,200
+Georg,116,Ironman,1,200
+Billi,1880,Fire,0,100

@@ -3,6 +3,8 @@
 #include<cstring>
 #pragma warning(disable:4996)
 
+//MyString is taken ready from github of A.Dimitriev
+
 class MyString
 {
 	char* _data;
