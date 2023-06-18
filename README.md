@@ -59,11 +59,18 @@ When user enters the program the _Main Menu_ is appeared where he has to choose 
 * To enter as an administrator
 * To enter as a player
 * To exit the program
-#_in the first case ,if he  chooses to enter as an admin ,again he has to choose 3 commands,to sign up,log in,or exit_
+
+ _in the first case ,if he  chooses to enter as an admin ,again he has to choose 3 commands,to sign up,log in,or exit_
   1.After signing up he must log in to see and perform admin functionalities.
   2.After logging in ,the  list of admin functionalities that is listed above  appears and admin has to choose one of the commands to perform.
   
  ![Screenshot 2023-06-18 130757](https://github.com/NataliaN24/FINAL-PROJECT-SUPERHEROES-GAMES/assets/115610226/d6f607e1-739d-4bcd-afbb-ebaa4c010681)
+_in the second  case ,if user   chooses to enter as a player ,again he has to choose 3 commands,to sign up,log in,or exit_
+
+![Screenshot 2023-06-18 130757](https://github.com/NataliaN24/FINAL-PROJECT-SUPERHEROES-GAMES/assets/115610226/4e24c4f5-f788-4087-a881-6f3098641d39)
+
+_When player chooses to log out he will gain money in his balance._
+
 
 
 
