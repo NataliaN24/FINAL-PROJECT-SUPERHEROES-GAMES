@@ -147,7 +147,6 @@ void PlayerFunctionalities(MyString email, MyString password, MyString name)
 {
     int choice;
     Player player;
-    //char superheroName[50];
     MyString superheroName;
     unsigned int money = 0;
     bool bought = false;
