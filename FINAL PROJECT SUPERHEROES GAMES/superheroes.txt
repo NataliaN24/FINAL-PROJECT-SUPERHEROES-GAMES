@@ -1,0 +1,4 @@
+Spiderman,Spider,Web,2,80,100,0
+Hulk,Wild,Greeny,2,55,80,0
+Captain,America,Cap,1,133,255,0
+Marvel,Captain,Marvi,0,45,120,0

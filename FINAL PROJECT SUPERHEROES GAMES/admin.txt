@@ -1,16 +1,1 @@
-Bill,Jason,Js,B1l
-Amy,Am,am,A1m
-Any,Smith,aa,A1s
-Hilton,Hi,Hi,H1s
-Jim,Fallon,jimmi,J1m
-Natalia,Na,na@,Na1
-Jimmii,Jim,j@,J1m
-Fim,Fam,fum,F1s
-Ermal,Mali,ma,E1m
-Jjj,JJJJ,jjasa,j1S
-Him,Has,kim,H1s
-Kim,Kau,Ll,Ki2
-Ammi,Am,Am@,A1m
-Bryce,Bri,he,b1D
-Maria,Mar,maria,M1a
-Ang,Ang,ang,A1g
+John,Doe,johndoe,Abc123

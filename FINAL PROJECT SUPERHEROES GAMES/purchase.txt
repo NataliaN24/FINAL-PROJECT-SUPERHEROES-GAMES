@@ -1,2 +1,2 @@
-Georg,116,Ironman,1,200
-Billi,1880,Fire,0,100
+James,250,Ironman,2,150
+George,250,Superman,0,300
